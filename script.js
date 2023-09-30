@@ -90,10 +90,18 @@ function drawGame() {
     for (let y = 0; y < GAME_HEIGHT; y++) {
         for (let x = 0; x < GAME_WIDTH; x++) {
             const char = grid[y][x];
-            if (char === 'P') {
-                display += '<div class="bacteria-player"></div>';
-            } else if (char === 'R') {
-                display += '<div class="bacteria-rival"></div>';
+            if (char === 'P') {  // Active player bacterium
+                if (canProduceBacterium()) {
+                    display += '<div class="bacteria bacteria-active-player can-produce"></div>';
+                } else {
+                    display += '<div class="bacteria bacteria-active-player"></div>';
+                }
+            } else if (char === 'p') {  // Created player bacterium
+                display += '<div class="bacteria bacteria-created-player"></div>';
+            } else if (char === 'R') {  // Active rival bacterium
+                display += '<div class="bacteria bacteria-active-rival"></div>';
+            } else if (char === 'r') {  // Created rival bacterium
+                display += '<div class="bacteria bacteria-created-rival"></div>';
             } else if (char === '#') {
                 display += '<div class="resource"></div>';
             } else {

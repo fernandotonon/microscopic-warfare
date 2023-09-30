@@ -20,21 +20,45 @@ body {
     overflow: hidden;
 }
 
-.bacteria-player, .bacteria-rival, .resource {
+.bacteria, .resource {
     display: inline-block;
     width: 10px;  /* Adjust size as needed */
     height: 10px;
     margin: 1px;  /* Spacing between elements */
 }
 
-.bacteria-player {
-    background-color: #00FF00;  /* Green */
-    border-radius: 50%;         /* Makes it circular */
+/* Active player bacterium */
+.bacteria-active-player {
+    background-color: #00DD00;  /* Bright green */
+    border-radius: 50%;  /* Circular shape */
 }
 
-.bacteria-rival {
-    background-color: #FF0000;  /* Red */
-    border-radius: 50%;         /* Makes it circular */
+/* Created player bacterium */
+.bacteria-created-player {
+    background-color: #66FF66;  /* Lighter green */
+    border-radius: 50%;  /* Circular shape */
+}
+
+/* Active rival bacterium */
+.bacteria-active-rival {
+    background-color: #DD0000;  /* Bright red */
+    border-radius: 50%;  /* Circular shape */
+}
+
+/* Created rival bacterium */
+.bacteria-created-rival {
+    background-color: #FF6666;  /* Lighter red */
+    border-radius: 50%;  /* Circular shape */
+}
+
+/* Glow effect for active player bacterium */
+.bacteria-active-player.can-produce {
+    box-shadow: 0 0 10px 2px #00DD00;  /* Green glow */
+}
+
+/* Glow effect for active rival bacterium */
+.bacteria-active-rival.can-produce {
+    box-shadow: 0 0 10px 2px #DD0000;  /* Red glow */
 }
 
 .resource {
