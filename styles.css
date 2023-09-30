@@ -11,6 +11,7 @@ body {
 }
 
 .game-container {
+    position: relative;
     border: 2px solid #eee;
     border-radius: 50%;             /* Makes it circular */
     box-shadow: 0px 0px 15px #555; /* Adds some depth/shadow */
@@ -54,4 +55,13 @@ body {
     font-size: 1em;            /* Adjust the width of characters */
     line-height: .5em;          /* Adjust the height between lines */
     letter-spacing: 0px;       /* Adjust horizontal spacing if necessary */
+}
+
+#scoreDisplay {
+    position: absolute;
+    top: 10px;  
+    left: 10px; 
+    color: #eee;
+    font-size: 20px; 
+    z-index: 10;  
 }

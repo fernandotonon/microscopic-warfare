@@ -7,6 +7,23 @@ const CENTER_Y = Math.floor(GAME_HEIGHT / 2);
 const RADIUS = Math.floor(Math.min(GAME_WIDTH, GAME_HEIGHT) / 2);
 const RADIUS_SQUARED = Math.pow(RADIUS, 2);
 const MAX_RESOURCES = 10; 
+let score = 0;
+const RESOURCES_FOR_PRODUCTION = 5;  // Adjust as needed
+let resourcesCollected = 0;
+
+// Check if the player has enough resources to produce
+function canProduceBacterium() {
+    return resourcesCollected >= RESOURCES_FOR_PRODUCTION;
+}
+
+function isBacteriumSurrounded(x, y) {
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    return directions.every(dir => {
+        const [dx, dy] = dir;
+        const nextCell = grid[y + dy][x + dx];
+        return nextCell !== ' ' && nextCell !== '#';  // Adjust based on your grid's representation
+    });
+}
 
 // Initialize the game grid with empty spaces
 let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' '));
@@ -41,9 +58,22 @@ document.addEventListener('keydown', function(event) {
     if(newX >= GAME_WIDTH) newX = GAME_WIDTH - 1;
     if(newY < 0) newY = 0;
     if(newY >= GAME_HEIGHT) newY = GAME_HEIGHT - 1;
-    
+
     // Check if the new position is within the petri dish boundary
     if (isWithinCircle(newX, newY)) {
+        const targetCell = grid[newY][newX];
+        if (targetCell === 'R' || isBacteriumSurrounded(newX, newY)) {
+            // Player is trying to move to a cell occupied by a rival or a surrounded bacterium, so block the movement
+            return;
+        }
+
+        // Consuming a resource
+        if (grid[newY][newX] === '#') {
+            score += 10;  // Increase the score. Adjust the value as needed.
+            document.getElementById('scoreDisplay').innerText = "Score: " + score;
+            resourcesCollected++;
+        }
+
         // Clear previous position
         grid[playerPos.y][playerPos.x] = ' ';
 
@@ -104,7 +134,25 @@ function spawnResource() {
         }
     }
 }
+
 setInterval(spawnResource, 5000);  // Spawns a resource every 5 seconds
+
+function checkEndGameConditions() {
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    const canMove = directions.some(dir => {
+        const [dx, dy] = dir;
+        const nextCell = grid[playerPos.y + dy][playerPos.x + dx];
+        return nextCell === '.' || nextCell === '#';  // Adjust based on your grid's representation
+    });
+
+    if (!canMove) {
+        // End game with a loss for the player
+    }
+
+    // Check the number of bacteria for each player to determine the winner
+    // ... 
+}
+
 function gameLoop() {
     
 
