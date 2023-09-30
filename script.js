@@ -9,9 +9,9 @@ const RADIUS_SQUARED = Math.pow(RADIUS, 2);
 const MAX_RESOURCES = 10; 
 
 // Initialize the game grid with empty spaces
-let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill('.'));
+let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' '));
 
-const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2) };
+const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2)};
 grid[playerPos.y][playerPos.x] = 'P';  // 'P' represents the player bacterium
 
 document.addEventListener('keydown', function(event) {
@@ -60,23 +60,24 @@ function drawGame() {
     for (let y = 0; y < GAME_HEIGHT; y++) {
         for (let x = 0; x < GAME_WIDTH; x++) {
             const char = grid[y][x];
-            if (char === 'P') {  // Let's assume 'P' represents player bacteria
-                display += '<span class="bacteria-player">P</span>';
-            } else if (char === 'R') {  // 'R' represents rival bacteria
-                display += '<span class="bacteria-rival">R</span>';
-            } else if (char === '#') {  // '#' represents resources
-                display += '<span class="resource">#</span>';
+            if (char === 'P') {
+                display += '<div class="bacteria-player"></div>';
+            } else if (char === 'R') {
+                display += '<div class="bacteria-rival"></div>';
+            } else if (char === '#') {
+                display += '<div class="resource"></div>';
             } else {
-                display += char;
+                if(isWithinCircle(x, y))
+                display += '<div class="empty"></div>';  // An empty space
             }
         }
-        display += '\n';
+        display += '<br/>';  // Move to the next line
     }
     gameArea.innerHTML = display;
 }
 
 function isWithinCircle(x, y) {
-    return Math.pow(x - CENTER_X, 2) + Math.pow(y - CENTER_Y, 2) <= RADIUS_SQUARED;
+    return Math.pow(x - CENTER_X, 2) + Math.pow(y - CENTER_Y, 2) <= RADIUS_SQUARED-1;
 }
 
 function getResourceCount() {

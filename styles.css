@@ -1,6 +1,6 @@
 body {
     font-family: 'Courier New', monospace;
-    font-size: 20px; /* Adjust based on your game's grid size */
+    font-size: 10px; /* Adjust based on your game's grid size */
     background-color: #222;
     color: #eee;
     text-align: center;
@@ -14,24 +14,39 @@ body {
     border: 2px solid #eee;
     border-radius: 50%;             /* Makes it circular */
     box-shadow: 0px 0px 15px #555; /* Adds some depth/shadow */
-    width: 400px;                   /* Adjust as needed */
-    height: 400px;                  /* Adjust as needed */
-    overflow: hidden;               /* Ensures the game doesn't spill out of the dish */
+    width: 480px;                   /* Adjust as needed */
+    height: 480px;                  /* Adjust as needed */
+    overflow: hidden;
 }
 
-/* Representing player bacteria */
+.bacteria-player, .bacteria-rival, .resource {
+    display: inline-block;
+    width: 10px;  /* Adjust size as needed */
+    height: 10px;
+    margin: 1px;  /* Spacing between elements */
+}
+
 .bacteria-player {
-    color: #00FF00;  /* Green */
+    background-color: #00FF00;  /* Green */
+    border-radius: 50%;         /* Makes it circular */
 }
 
-/* Representing rival bacteria */
 .bacteria-rival {
-    color: #FF0000;  /* Red */
+    background-color: #FF0000;  /* Red */
+    border-radius: 50%;         /* Makes it circular */
 }
 
-/* Representing resources */
 .resource {
-    color: #FFFF00;  /* Yellow */
+    background-color: #FFFF00;  /* Yellow */
+    border-radius: 50%;         /* Makes it circular */
+}
+
+.empty {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 1px;
+    background-color: transparent;
 }
 
 #gameArea {
