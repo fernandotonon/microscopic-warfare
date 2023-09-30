@@ -61,20 +61,39 @@ function drawGame() {
     gameArea.innerHTML = display;
 }
 
+const CENTER_X = Math.floor(GAME_WIDTH / 2);
+const CENTER_Y = Math.floor(GAME_HEIGHT / 2);
+const RADIUS_SQUARED = Math.pow(Math.min(GAME_WIDTH, GAME_HEIGHT) / 2, 2);
+const MAX_RESOURCES = 10;  // Adjust as needed
+
+function isWithinCircle(x, y) {
+    return Math.pow(x - CENTER_X, 2) + Math.pow(y - CENTER_Y, 2) <= RADIUS_SQUARED;
+}
+
+function getResourceCount() {
+    let count = 0;
+    for (let y = 0; y < GAME_HEIGHT; y++) {
+        for (let x = 0; x < GAME_WIDTH; x++) {
+            if (grid[y][x] === '#') count++;
+        }
+    }
+    return count;
+}
+
 function spawnResource() {
+    if (getResourceCount() >= MAX_RESOURCES) return;  // Don't spawn if max resources reached
+
     let spawned = false;
     while (!spawned) {
         let x = Math.floor(Math.random() * GAME_WIDTH);
         let y = Math.floor(Math.random() * GAME_HEIGHT);
         
-        // Check if the spot is empty
-        if (grid[y][x] === ' ') {
-            grid[y][x] = '#';  // '#' represents resource
+        if (grid[y][x] === ' ' && isWithinCircle(x, y)) {
+            grid[y][x] = '#';
             spawned = true;
         }
     }
 }
-
 
 function gameLoop() {
     setInterval(spawnResource, 5000);  // Spawns a resource every 5 seconds
