@@ -1,7 +1,11 @@
 const gameArea = document.getElementById('gameArea');
 
 const GAME_WIDTH = 40;  
-const GAME_HEIGHT = 20; 
+const GAME_HEIGHT = 40; 
+const CENTER_X = Math.floor(GAME_WIDTH / 2);
+const CENTER_Y = Math.floor(GAME_HEIGHT / 2);
+const RADIUS_SQUARED = Math.pow(Math.min(GAME_WIDTH, GAME_HEIGHT) / 2, 2);
+const MAX_RESOURCES = 10; 
 
 // Initialize the game grid with empty spaces
 let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' '));
@@ -64,11 +68,6 @@ function drawGame() {
     }
     gameArea.innerHTML = display;
 }
-
-const CENTER_X = Math.floor(GAME_WIDTH / 2);
-const CENTER_Y = Math.floor(GAME_HEIGHT / 2);
-const RADIUS_SQUARED = Math.pow(Math.min(GAME_WIDTH, GAME_HEIGHT) / 2, 2);
-const MAX_RESOURCES = 10;  // Adjust as needed
 
 function isWithinCircle(x, y) {
     return Math.pow(x - CENTER_X, 2) + Math.pow(y - CENTER_Y, 2) <= RADIUS_SQUARED;
