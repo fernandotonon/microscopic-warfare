@@ -1,7 +1,7 @@
 const gameArea = document.getElementById('gameArea');
 
-const GAME_WIDTH = 20;  // Define the width of your game grid
-const GAME_HEIGHT = 10; // Define the height of your game grid
+const GAME_WIDTH = 40;  
+const GAME_HEIGHT = 20; 
 
 // Initialize the game grid with empty spaces
 let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' '));
