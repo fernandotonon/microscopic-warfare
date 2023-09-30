@@ -10,34 +10,38 @@ const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2
 grid[playerPos.y][playerPos.x] = 'P';  // 'P' represents the player bacterium
 
 document.addEventListener('keydown', function(event) {
+    let newX = playerPos.x;
+    let newY = playerPos.y;
+
     switch (event.key) {
         case 'ArrowUp':
         case 'w':
-            if (playerPos.y > 0) playerPos.y--;
+            newY--;
             break;
         case 'ArrowDown':
         case 's':
-            if (playerPos.y < GAME_HEIGHT - 1) playerPos.y++;
+            newY++;
             break;
         case 'ArrowLeft':
         case 'a':
-            if (playerPos.x > 0) playerPos.x--;
+            newX--;
             break;
         case 'ArrowRight':
         case 'd':
-            if (playerPos.x < GAME_WIDTH - 1) playerPos.x++;
+            newX++;
             break;
     }
     
-    // Clear previous position
-    for (let y = 0; y < GAME_HEIGHT; y++) {
-        for (let x = 0; x < GAME_WIDTH; x++) {
-            if (grid[y][x] === 'P') grid[y][x] = ' ';
-        }
+    // Check if the new position is within the petri dish boundary
+    if (isWithinCircle(newX, newY)) {
+        // Clear previous position
+        grid[playerPos.y][playerPos.x] = ' ';
+
+        // Update player position on the grid
+        playerPos.x = newX;
+        playerPos.y = newY;
+        grid[playerPos.y][playerPos.x] = 'P';
     }
-    
-    // Update player position on the grid
-    grid[playerPos.y][playerPos.x] = 'P';
 });
 
 
