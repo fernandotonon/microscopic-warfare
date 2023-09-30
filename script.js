@@ -29,7 +29,9 @@ function isBacteriumSurrounded(x, y) {
 let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' '));
 
 const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2)};
+let rivalPos = { x: 30, y: 30 };
 grid[playerPos.y][playerPos.x] = 'P';  // 'P' represents the player bacterium
+grid[rivalPos.y][rivalPos.x] = 'R';  // 'R' represents the rival bacterium
 
 function produceBacterium() {
     const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
@@ -43,6 +45,57 @@ function produceBacterium() {
             document.getElementById('resourcesDisplay').innerText = "Resources: " + resourcesCollected;
             return;  // Exit after placing one bacterium
         }
+    }
+}
+
+function findClosestResource(x, y) {
+    let minDistance = Infinity;
+    let closestResource = null;
+    
+    for (let i = 0; i < GAME_HEIGHT; i++) {
+        for (let j = 0; j < GAME_WIDTH; j++) {
+            if (grid[i][j] === '#') {
+                const distance = Math.abs(x - j) + Math.abs(y - i);
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestResource = {x: j, y: i};
+                }
+            }
+        }
+    }
+    
+    return closestResource;
+}
+
+function moveRivalTowardResource(rivalX, rivalY, resourceX, resourceY) {
+    if (resourceX < rivalX) {
+        return {x: rivalX - 1, y: rivalY};
+    } else if (resourceX > rivalX) {
+        return {x: rivalX + 1, y: rivalY};
+    } else if (resourceY < rivalY) {
+        return {x: rivalX, y: rivalY - 1};
+    } else if (resourceY > rivalY) {
+        return {x: rivalX, y: rivalY + 1};
+    }
+}
+
+function moveRival() {
+    let rivalPos = { x: 30, y: 30 };
+    for (let i = 0; i < GAME_HEIGHT; i++) {
+        for (let j = 0; j < GAME_WIDTH; j++) {
+            if (grid[i][j] === 'R') {
+                rivalPos = { x: j, y: i };
+                break;
+            }
+        }
+    }
+    const closestResource = findClosestResource(rivalPos.x, rivalPos.y);
+    if(closestResource){
+        const nextMove = moveRivalTowardResource(rivalPos.x, rivalPos.y, closestResource.x, closestResource.y);
+        
+        // Update the grid
+        grid[rivalPos.y][rivalPos.x] = ' ';
+        grid[nextMove.y][nextMove.x] = 'R';
     }
 }
 
@@ -164,6 +217,7 @@ function spawnResource() {
 }
 
 setInterval(spawnResource, 3000);  // Spawns a resource every 3 seconds
+setInterval(moveRival, 300);  // Moves rival every 0.3 seconds
 
 function checkEndGameConditions() {
     const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
