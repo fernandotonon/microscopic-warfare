@@ -36,4 +36,6 @@ body {
 
 #gameArea {
     margin: 0;
+    line-height: 0.8em;  /* Adjust the line height */
+    letter-spacing: -1px; /* Optionally, to make characters slightly closer */
 }
