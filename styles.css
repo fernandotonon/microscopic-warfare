@@ -81,11 +81,15 @@ body {
     letter-spacing: 0px;       /* Adjust horizontal spacing if necessary */
 }
 
-#scoreDisplay {
+#scoreDisplay, #resourcesDisplay {
     position: absolute;
-    top: 10px;  
-    left: 10px; 
-    color: #eee;
-    font-size: 20px; 
+    top: 10px;
+    left: 10px;
     z-index: 10;  
+    color: #fff;
+    font-weight: bold;
+}
+
+#resourcesDisplay {
+    top: 30px;  
 }

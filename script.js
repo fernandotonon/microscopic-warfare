@@ -40,6 +40,7 @@ function produceBacterium() {
         if (grid[y] && grid[y][x] === ' ' && isWithinCircle(x, y)) {
             grid[y][x] = 'p';  // Place a new player bacterium
             resourcesCollected -= RESOURCES_FOR_PRODUCTION;  // Deduct the resources
+            document.getElementById('resourcesDisplay').innerText = "Resources: " + resourcesCollected;
             return;  // Exit after placing one bacterium
         }
     }
@@ -90,6 +91,7 @@ document.addEventListener('keydown', function(event) {
             score += 10;  // Increase the score. Adjust the value as needed.
             document.getElementById('scoreDisplay').innerText = "Score: " + score;
             resourcesCollected++;
+            document.getElementById('resourcesDisplay').innerText = "Resources: " + resourcesCollected;
         }
 
         // Swap positions
