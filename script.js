@@ -9,7 +9,7 @@ const RADIUS_SQUARED = Math.pow(RADIUS, 2);
 const MAX_RESOURCES = 10; 
 
 // Initialize the game grid with empty spaces
-let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' '));
+let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill('.'));
 
 const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2) };
 grid[playerPos.y][playerPos.x] = 'P';  // 'P' represents the player bacterium
@@ -36,6 +36,11 @@ document.addEventListener('keydown', function(event) {
             newX++;
             break;
     }
+
+    if(newX < 0) newX = 0;
+    if(newX >= GAME_WIDTH) newX = GAME_WIDTH - 1;
+    if(newY < 0) newY = 0;
+    if(newY >= GAME_HEIGHT) newY = GAME_HEIGHT - 1;
     
     // Check if the new position is within the petri dish boundary
     if (isWithinCircle(newX, newY)) {
@@ -98,9 +103,9 @@ function spawnResource() {
         }
     }
 }
-
+setInterval(spawnResource, 5000);  // Spawns a resource every 5 seconds
 function gameLoop() {
-    setInterval(spawnResource, 5000);  // Spawns a resource every 5 seconds
+    
 
     // Update game state
     // ...

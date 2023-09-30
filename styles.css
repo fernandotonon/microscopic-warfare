@@ -1,6 +1,6 @@
 body {
     font-family: 'Courier New', monospace;
-    font-size: 10px; /* Adjust based on your game's grid size */
+    font-size: 20px; /* Adjust based on your game's grid size */
     background-color: #222;
     color: #eee;
     text-align: center;
@@ -36,6 +36,7 @@ body {
 
 #gameArea {
     margin: 0;
-    line-height: 0.8em;  /* Adjust the line height */
-    letter-spacing: -1px; /* Optionally, to make characters slightly closer */
+    font-size: 1em;            /* Adjust the width of characters */
+    line-height: .5em;          /* Adjust the height between lines */
+    letter-spacing: 0px;       /* Adjust horizontal spacing if necessary */
 }
