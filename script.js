@@ -11,7 +11,7 @@ const MAX_RESOURCES = 10;
 // Initialize the game grid with empty spaces
 let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' '));
 
-const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2) };
+const playerPos = { x: Math.floor(GAME_WIDTH / 2) - 1, y: Math.floor(GAME_HEIGHT / 2) - 1 };
 grid[playerPos.y][playerPos.x] = 'P';  // 'P' represents the player bacterium
 
 document.addEventListener('keydown', function(event) {
@@ -71,7 +71,16 @@ function drawGame() {
 }
 
 function isWithinCircle(x, y) {
-    return Math.pow(x - CENTER_X, 2) + Math.pow(y - CENTER_Y, 2) <= RADIUS_SQUARED;
+    // Check top-left corner
+    if (Math.pow(x - CENTER_X, 2) + Math.pow(y - CENTER_Y, 2) > RADIUS_SQUARED) return false;
+    // Check top-right corner
+    if (Math.pow(x + 1 - CENTER_X, 2) + Math.pow(y - CENTER_Y, 2) > RADIUS_SQUARED) return false;
+    // Check bottom-left corner
+    if (Math.pow(x - CENTER_X, 2) + Math.pow(y + 1 - CENTER_Y, 2) > RADIUS_SQUARED) return false;
+    // Check bottom-right corner
+    if (Math.pow(x + 1 - CENTER_X, 2) + Math.pow(y + 1 - CENTER_Y, 2) > RADIUS_SQUARED) return false;
+
+    return true;
 }
 
 function getResourceCount() {
