@@ -29,36 +29,36 @@ body {
 
 /* Active player bacterium */
 .bacteria-active-player {
-    background-color: #00DD00;  /* Bright green */
+    background-color: #00CC00;  /* Bright green */
     border-radius: 50%;  /* Circular shape */
 }
 
 /* Created player bacterium */
 .bacteria-created-player {
-    background-color: #66FF66;  /* Lighter green */
+    background-color: #AAFFAA;  /* Lighter green */
     border-radius: 50%;  /* Circular shape */
 }
 
 /* Active rival bacterium */
 .bacteria-active-rival {
-    background-color: #DD0000;  /* Bright red */
+    background-color: #AA0000;  /* Bright red */
     border-radius: 50%;  /* Circular shape */
 }
 
 /* Created rival bacterium */
 .bacteria-created-rival {
-    background-color: #FF6666;  /* Lighter red */
+    background-color: #FFAAAA;  /* Lighter red */
     border-radius: 50%;  /* Circular shape */
 }
 
 /* Glow effect for active player bacterium */
 .bacteria-active-player.can-produce {
-    box-shadow: 0 0 10px 2px #00DD00;  /* Green glow */
+    box-shadow: 0 0 10px 2px #00CC00;  /* Green glow */
 }
 
 /* Glow effect for active rival bacterium */
 .bacteria-active-rival.can-produce {
-    box-shadow: 0 0 10px 2px #DD0000;  /* Red glow */
+    box-shadow: 0 0 10px 2px #CC0000;  /* Red glow */
 }
 
 .resource {

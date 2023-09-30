@@ -31,6 +31,20 @@ let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' ')
 const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2)};
 grid[playerPos.y][playerPos.x] = 'P';  // 'P' represents the player bacterium
 
+function produceBacterium() {
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    for (let dir of directions) {
+        const [dx, dy] = dir;
+        const x = playerPos.x + dx;
+        const y = playerPos.y + dy;
+        if (grid[y] && grid[y][x] === ' ' && isWithinCircle(x, y)) {
+            grid[y][x] = 'p';  // Place a new player bacterium
+            resourcesCollected -= RESOURCES_FOR_PRODUCTION;  // Deduct the resources
+            return;  // Exit after placing one bacterium
+        }
+    }
+}
+
 document.addEventListener('keydown', function(event) {
     let newX = playerPos.x;
     let newY = playerPos.y;
@@ -54,6 +68,10 @@ document.addEventListener('keydown', function(event) {
             break;
     }
 
+    if (event.key === ' ' && canProduceBacterium()) {
+        produceBacterium();
+    }
+
     if(newX < 0) newX = 0;
     if(newX >= GAME_WIDTH) newX = GAME_WIDTH - 1;
     if(newY < 0) newY = 0;
@@ -74,8 +92,8 @@ document.addEventListener('keydown', function(event) {
             resourcesCollected++;
         }
 
-        // Clear previous position
-        grid[playerPos.y][playerPos.x] = ' ';
+        // Swap positions
+        grid[playerPos.y][playerPos.x] = grid[newY][newX] === 'p' ? 'p' : ' ';  // Clear the previous position
 
         // Update player position on the grid
         playerPos.x = newX;
@@ -143,7 +161,7 @@ function spawnResource() {
     }
 }
 
-setInterval(spawnResource, 5000);  // Spawns a resource every 5 seconds
+setInterval(spawnResource, 3000);  // Spawns a resource every 3 seconds
 
 function checkEndGameConditions() {
     const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
