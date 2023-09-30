@@ -8,10 +8,22 @@ let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' ')
 
 function drawGame() {
     let display = '';
-    for (let row of grid) {
-        display += row.join('') + '\n';
+    for (let y = 0; y < GAME_HEIGHT; y++) {
+        for (let x = 0; x < GAME_WIDTH; x++) {
+            const char = grid[y][x];
+            if (char === 'P') {  // Let's assume 'P' represents player bacteria
+                display += '<span class="bacteria-player">P</span>';
+            } else if (char === 'R') {  // 'R' represents rival bacteria
+                display += '<span class="bacteria-rival">R</span>';
+            } else if (char === '#') {  // '#' represents resources
+                display += '<span class="resource">#</span>';
+            } else {
+                display += char;
+            }
+        }
+        display += '\n';
     }
-    gameArea.textContent = display;
+    gameArea.innerHTML = display;
 }
 
 function gameLoop() {

@@ -19,6 +19,20 @@ body {
     overflow: hidden;               /* Ensures the game doesn't spill out of the dish */
 }
 
+/* Representing player bacteria */
+.bacteria-player {
+    color: #00FF00;  /* Green */
+}
+
+/* Representing rival bacteria */
+.bacteria-rival {
+    color: #FF0000;  /* Red */
+}
+
+/* Representing resources */
+.resource {
+    color: #FFFF00;  /* Yellow */
+}
 
 #gameArea {
     margin: 0;
