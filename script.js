@@ -4,7 +4,8 @@ const GAME_WIDTH = 40;
 const GAME_HEIGHT = 40; 
 const CENTER_X = Math.floor(GAME_WIDTH / 2);
 const CENTER_Y = Math.floor(GAME_HEIGHT / 2);
-const RADIUS_SQUARED = Math.pow(Math.min(GAME_WIDTH, GAME_HEIGHT) / 2, 2);
+const RADIUS = Math.floor(Math.min(GAME_WIDTH, GAME_HEIGHT) / 2);
+const RADIUS_SQUARED = Math.pow(RADIUS, 2);
 const MAX_RESOURCES = 10; 
 
 // Initialize the game grid with empty spaces
