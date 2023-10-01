@@ -96,3 +96,18 @@ function gameLoop() {
 
 // Start the game loop
 gameLoop();
+
+// Prevent scrolling with arrow keys
+document.addEventListener("keydown", function(event) {
+        event.preventDefault();
+}, false);
+
+// Prevent scrolling with touch
+window.addEventListener('touchmove', function(event) {
+    event.preventDefault();
+}, { passive: false });
+
+// Prevent scrolling with mouse wheel
+window.addEventListener('wheel', function(event) {
+    event.preventDefault();
+}, { passive: false });
