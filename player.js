@@ -30,6 +30,10 @@ document.addEventListener('keydown', function(event) {
     if (event.key === ' ' && canProduceBacterium(resourcesCollected)) {
         produceBacterium();
         reproduceSFX.play();
+        hasPlayerProduced = true;
+        setInterval(() => {
+            hasPlayerProduced = false;
+        }, 100);
     }
 
     if(newX < 0) newX = 0;
@@ -58,6 +62,10 @@ document.addEventListener('keydown', function(event) {
             resourcesCollected++;
             document.getElementById('resourcesDisplay').innerText = "Resources: " + resourcesCollected;
             consumeSFX.play();
+            hasPlayerConsumed = true;
+            setInterval(() => {
+                hasPlayerConsumed = false;
+            }, 100);
         } else {
             moveSFX.play();
         }

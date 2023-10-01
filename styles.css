@@ -74,6 +74,51 @@ body {
     background-color: transparent;
 }
 
+.slide {
+    transition: transform 0.3s ease-out;
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.2);
+    }
+}
+
+.scale-up {
+    animation: scaleUp 0.2s alternate 2;
+}
+
+.particle {
+    width: 5px;
+    height: 5px;
+    background-color: yellow;
+    border-radius: 50%;
+    position: absolute;
+    animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes split {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.split {
+    animation: split 0.5s forwards;
+}
+
 #gameArea {
     margin: 0;
     font-size: 1em;            /* Adjust the width of characters */

@@ -15,26 +15,19 @@ setInterval(checkStalemate, 1000);  // Spawns a resource every 1 second
 while (getResourceCount() < MAX_RESOURCES) {
     spawnResource();
 }
-
+let hasPlayerProduced = false;
+let hasPlayerConsumed = false;
 function drawGame() {
     let display = '';
     for (let y = 0; y < GAME_HEIGHT; y++) {
         for (let x = 0; x < GAME_WIDTH; x++) {
             const char = grid[y][x];
             if (char === 'P') {  // Active player bacterium
-                if (canProduceBacterium(resourcesCollected)) {
-                    display += '<div class="bacteria bacteria-active-player can-produce"></div>';
-                } else {
-                    display += '<div class="bacteria bacteria-active-player"></div>';
-                }
+                display += `<div class="bacteria bacteria-active-player ${canProduceBacterium(resourcesCollected)?'can-produce':''} ${hasPlayerProduced?'split':''} ${hasPlayerConsumed?'particle':''}"></div>`;
             } else if (char === 'p') {  // Created player bacterium
                 display += '<div class="bacteria bacteria-created-player"></div>';
             } else if (char === 'R') {  // Active rival bacterium
-                if (canProduceBacterium(rivalResourcesCollected)) {
-                    display += '<div class="bacteria bacteria-active-rival can-produce"></div>';
-                } else {
-                    display += '<div class="bacteria bacteria-active-rival"></div>';
-                }
+                display += `<div class="bacteria bacteria-active-rival ${canProduceBacterium(rivalResourcesCollected)?'can-produce':''}"></div>`;
             } else if (char === 'r') {  // Created rival bacterium
                 display += '<div class="bacteria bacteria-created-rival"></div>';
             } else if (char === '#') {
@@ -49,7 +42,7 @@ function drawGame() {
     gameArea.innerHTML = display;
 }
 
-setInterval(spawnResource, 2000);  // Spawns a resource every 2 seconds
+setInterval(spawnResource, 1000);  // Spawns a resource every 1 second
 setInterval(checkDominance, 200);  // Spawns a resource every 200 ms
 function checkDominance() {
     let playerCells = 0;
