@@ -23,9 +23,10 @@ In "Microscopic Warfare", the player will be in control of a bacterial colony in
 * If a rival bacterium reaches a resource before the player, it consumes the resource and might multiply.
 * Rival bacteria can also "attack" or "consume" the player's bacteria if they outnumber them in an adjacent tile.
 
-### Winning & Losing:
-* The game could be time-based, where the player has a set time to become the dominant colony. At the end of the timer, the colony with the most bacteria wins.
-* Alternatively, the game can end when the player's bacteria are completely wiped out or when they achieve a certain size.
+### End game conditions:
+Player or Rival Can't Move: If either the player or the rival is surrounded and can't make any valid moves, the game ends. The one who can't move loses.
+Dominance: If either the player or the rival occupies a significant majority of the board (e.g., 80% or more), that entity is declared the winner.
+Stalemate: If a certain number of moves go by without any new bacteria being created and without any resources being collected, the game could be declared a draw.
 
 ## Potential Advanced Mechanics:
 ### Upgrades:

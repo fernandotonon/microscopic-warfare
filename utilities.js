@@ -46,6 +46,20 @@ function canProduceBacterium(resources) {
     return resources >= RESOURCES_FOR_PRODUCTION;
 }
 
+function canMove(x, y, walkableTypes) {
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    return directions.some(dir => {
+        const [dx, dy] = dir;
+        const nextX = x + dx;
+        const nextY = y + dy;
+        if (grid[nextY] && grid[nextY][nextX] && walkableTypes.includes(grid[nextY][nextX]) && isWithinCircle(nextX, nextY)) {
+            return true;
+        }
+        return false;
+    });
+}
+
+
 function isBacteriumSurrounded(x, y) {
     const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
     return directions.every(dir => {

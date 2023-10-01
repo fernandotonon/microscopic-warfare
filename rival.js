@@ -1,3 +1,5 @@
+const rivalWalkableTypes = [' ', '#', 'r'];
+
 let rivalPos = { x: 30, y: 30 };
 grid[rivalPos.y][rivalPos.x] = 'R';  // 'R' represents the rival bacterium
 
@@ -51,6 +53,11 @@ function moveRival() {
     if (canProduceBacterium(rivalResourcesCollected)) {
         produceRivalBacterium();
     }
+
+    if (!canMove(rivalPos.x, rivalPos.y, rivalWalkableTypes)) {
+        // Rival can't move, player wins
+        endGame('Player Wins!');
+    }    
 
     const start = new Node(rivalPos.x, rivalPos.y);
     const goal = new Node(nearestResource.x, nearestResource.y);

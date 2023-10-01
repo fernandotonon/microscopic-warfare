@@ -1,3 +1,4 @@
+const playerWalkableTypes = [' ', '#', 'p'];
 
 const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2)};
 grid[playerPos.y][playerPos.x] = 'P';  // 'P' represents the player bacterium
@@ -34,6 +35,12 @@ document.addEventListener('keydown', function(event) {
     if(newX >= GAME_WIDTH) newX = GAME_WIDTH - 1;
     if(newY < 0) newY = 0;
     if(newY >= GAME_HEIGHT) newY = GAME_HEIGHT - 1;
+
+    if (!canMove(playerPos.x, playerPos.y, playerWalkableTypes)) {
+        // Player can't move, rival wins
+        endGame('Rival Wins!');
+        return;
+    }
 
     // Check if the new position is within the petri dish boundary
     if (isWithinCircle(newX, newY)) {

@@ -1,3 +1,17 @@
+let stalemateCounter = 0;
+let lastResourceCounter = 0;
+function checkStalemate() {
+    if (lastResourceCounter === getResourceCount()) {
+        stalemateCounter++;
+        if (stalemateCounter >= 60) {
+            endGame('Stalemate!');
+        }
+    } else {
+        stalemateCounter = 0;  // Reset the counter if there's any activity
+    }
+}
+setInterval(checkStalemate, 1000);  // Spawns a resource every 1 second
+
 while (getResourceCount() < MAX_RESOURCES) {
     spawnResource();
 }
@@ -36,21 +50,30 @@ function drawGame() {
 }
 
 setInterval(spawnResource, 2000);  // Spawns a resource every 2 seconds
+setInterval(checkDominance, 200);  // Spawns a resource every 200 ms
+function checkDominance() {
+    let playerCells = 0;
+    let rivalCells = 0;
 
-function checkEndGameConditions() {
-    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
-    const canMove = directions.some(dir => {
-        const [dx, dy] = dir;
-        const nextCell = grid[playerPos.y + dy][playerPos.x + dx];
-        return nextCell === ' ' || nextCell === '#';  // Adjust based on your grid's representation
-    });
-
-    if (!canMove) {
-        // End game with a loss for the player
+    for (let y = 0; y < GAME_HEIGHT; y++) {
+        for (let x = 0; x < GAME_WIDTH; x++) {
+            if (['P', 'p'].includes(grid[y][x])) playerCells++;
+            if (['R', 'r'].includes(grid[y][x])) rivalCells++;
+        }
     }
 
-    // Check the number of bacteria for each player to determine the winner
-    // ... 
+    const totalCells = GAME_WIDTH * GAME_HEIGHT;
+    if (playerCells / totalCells >= 0.5) {
+        endGame('Player Dominates!');
+    } else if (rivalCells / totalCells >= 0.5) {
+        endGame('Rival Dominates!');
+    }
+}
+
+function endGame(message) {
+    // Stop game loop, intervals, or any ongoing game activity
+    // Display the end game message to the player
+    alert(message);
 }
 
 function gameLoop() {
