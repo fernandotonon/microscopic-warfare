@@ -29,6 +29,7 @@ document.addEventListener('keydown', function(event) {
 
     if (event.key === ' ' && canProduceBacterium(resourcesCollected)) {
         produceBacterium();
+        reproduceSFX.play();
     }
 
     if(newX < 0) newX = 0;
@@ -56,6 +57,9 @@ document.addEventListener('keydown', function(event) {
             document.getElementById('scoreDisplay').innerText = "Score: " + score;
             resourcesCollected++;
             document.getElementById('resourcesDisplay').innerText = "Resources: " + resourcesCollected;
+            consumeSFX.play();
+        } else {
+            moveSFX.play();
         }
 
         // Swap positions

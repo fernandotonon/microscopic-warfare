@@ -76,6 +76,18 @@ function endGame(message) {
     alert(message);
 }
 
+
+// Load the audio files
+let bgMusic = new Audio('smooth_background_music.wav');
+let moveSFX = new Audio('move_sfx.mp3');
+let consumeSFX = new Audio('consume_sfx.mp3');
+let reproduceSFX = new Audio('reproduce_sfx.mp3');
+
+// Play background music
+//bgMusic.loop = true; // So that it plays continuously
+bgMusic.volume = 0.5; // Reduce volume if it's too loud
+//bgMusic.play();
+
 function gameLoop() {
     
 
