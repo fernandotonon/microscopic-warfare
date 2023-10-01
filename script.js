@@ -79,6 +79,84 @@ function moveRivalTowardResource(rivalX, rivalY, resourceX, resourceY) {
     }
 }
 
+class Node {
+    constructor(x, y, g = 0, h = 0) {
+        this.x = x;
+        this.y = y;
+        this.g = g;  // cost from start node to this node
+        this.h = h;  // heuristic: estimated cost from this node to goal node
+        this.f = g + h;  // total cost
+        this.parent = null;
+    }
+}
+
+// Returns a list of neighboring nodes
+function getNeighbors(node) {
+    const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+    const neighbors = [];
+    
+    for (let [dx, dy] of directions) {
+        const x = node.x + dx;
+        const y = node.y + dy;
+        
+        if (grid[y] && grid[y][x] && (grid[y][x] === ' ' || grid[y][x] === '#')) {
+            neighbors.push(new Node(x, y));
+        }
+    }
+    
+    return neighbors;
+}
+
+// Heuristic function: Manhattan distance
+function heuristic(node, goal) {
+    return Math.abs(node.x - goal.x) + Math.abs(node.y - goal.y);
+}
+
+function aStar(start, goal) {
+    const openList = [];
+    const closedList = [];
+    
+    openList.push(start);
+    
+    while (openList.length > 0) {
+        // Find node with lowest f in openList
+        openList.sort((a, b) => a.f - b.f);
+        const current = openList.shift();
+        
+        if (current.x === goal.x && current.y === goal.y) {
+            // Goal reached
+            let path = [];
+            let temp = current;
+            while (temp) {
+                path.push(temp);
+                temp = temp.parent;
+            }
+            return path.reverse();
+        }
+        
+        closedList.push(current);
+        
+        const neighbors = getNeighbors(current);
+        for (let neighbor of neighbors) {
+            if (closedList.some(n => n.x === neighbor.x && n.y === neighbor.y)) {
+                continue;
+            }
+            
+            neighbor.g = current.g + 1;
+            neighbor.h = heuristic(neighbor, goal);
+            neighbor.f = neighbor.g + neighbor.h;
+            neighbor.parent = current;
+            
+            if (!openList.some(n => n.x === neighbor.x && n.y === neighbor.y)) {
+                openList.push(neighbor);
+            }
+        }
+    }
+    
+    // Return an empty array if no path is found
+    return [];
+}
+
 function moveRival() {
     let rivalPos = { x: 30, y: 30 };
     for (let i = 0; i < GAME_HEIGHT; i++) {
@@ -89,12 +167,18 @@ function moveRival() {
             }
         }
     }
-    const closestResource = findClosestResource(rivalPos.x, rivalPos.y);
-    if(closestResource){
-        const nextMove = moveRivalTowardResource(rivalPos.x, rivalPos.y, closestResource.x, closestResource.y);
-        
-        // Update the grid
-        grid[rivalPos.y][rivalPos.x] = ' ';
+    const nearestResource = findClosestResource(rivalPos.x,rivalPos.y);  // Implement this function to find the nearest resource to the rival
+    if(!nearestResource) return;  // No resource found, so don't move
+
+    const start = new Node(rivalPos.x, rivalPos.y);
+    const goal = new Node(nearestResource.x, nearestResource.y);
+    
+    const path = aStar(start, goal);
+    console.log("path", path);
+    if (path.length > 1) {
+        const nextMove = path[1];
+        // Move the rival to nextMove.x, nextMove.y and update the grid accordingly
+        grid[rivalPos.y][rivalPos.x] = grid[nextMove.y][nextMove.x] === 'r' ? 'r' : ' ';  // Swap or clear the previous position
         grid[nextMove.y][nextMove.x] = 'R';
     }
 }
