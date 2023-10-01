@@ -61,11 +61,6 @@ function moveRival() {
     if (path.length > 1) {
         const nextMove = path[1];
 
-        if (!canMove(nextMove.x, nextMove.y, rivalWalkableTypes)) {
-            // Rival can't move, player wins
-            endGame('Player Wins!');
-        }
-
         // Consuming a resource
         if (grid[nextMove.y][nextMove.x] === '#') {
             rivalResourcesCollected++;
@@ -74,6 +69,8 @@ function moveRival() {
         // Move the rival to nextMove.x, nextMove.y and update the grid accordingly
         grid[rivalPos.y][rivalPos.x] = grid[nextMove.y][nextMove.x] === 'r' ? 'r' : ' ';  // Swap or clear the previous position
         grid[nextMove.y][nextMove.x] = 'R';
+    } else {
+        endGame('Player Wins!');
     }
 }
 
