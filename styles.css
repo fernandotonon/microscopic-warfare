@@ -157,7 +157,7 @@ body {
     letter-spacing: 0px;       /* Adjust horizontal spacing if necessary */
 }
 
-#scoreDisplay, #resourcesDisplay, #backHome {
+#scoreDisplay, #resourcesDisplay, #backHome, #bestScoreDisplay {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -166,12 +166,16 @@ body {
     font-weight: bold;
 }
 
-#resourcesDisplay {
+#scoreDisplay {
     top: 30px;  
 }
 
+#resourcesDisplay {
+    top: 50px;  
+}
+
 #backHome {
-    top: 60px;  
+    top: 70px;  
 }
 
 #controls {

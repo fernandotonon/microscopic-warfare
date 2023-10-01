@@ -90,3 +90,14 @@ function produceBacterium() {
         }
     }
 }
+
+function saveBestScore(score) {
+    // Fetch the stored best score. If it doesn't exist, default to 0.
+    const bestScore = parseInt(localStorage.getItem('bestScore') || "0", 10);
+
+    // If the new score is higher than the best score, update it.
+    if (score > bestScore) {
+        localStorage.setItem('bestScore', score.toString());
+    }
+}
+

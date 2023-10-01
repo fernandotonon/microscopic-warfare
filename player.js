@@ -4,6 +4,12 @@ const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2
 grid[playerPos.y][playerPos.x] = 'P';  // 'P' represents the player bacterium
 let resourcesCollected = 0;
 
+function displayBestScore() {
+    const bestScore = parseInt(localStorage.getItem('bestScore') || "0", 10);
+    document.getElementById('bestScoreDisplay').innerText = "Best Score: " + bestScore;
+}
+displayBestScore();
+
 document.addEventListener('keydown', function(event) {
     let newX = playerPos.x;
     let newY = playerPos.y;
@@ -30,6 +36,12 @@ document.addEventListener('keydown', function(event) {
     if (event.key === ' ' && canProduceBacterium(resourcesCollected)) {
         produceBacterium();
         reproduceSFX.play();
+
+        score += 5;  // extra points for producing a bacterium
+        document.getElementById('scoreDisplay').innerText = "Score: " + score;
+        saveBestScore(score);
+        displayBestScore();
+
         hasPlayerProduced = true;
         setInterval(() => {
             hasPlayerProduced = false;
@@ -59,6 +71,9 @@ document.addEventListener('keydown', function(event) {
         if (grid[newY][newX] === '#') {
             score += 10;  // Increase the score. Adjust the value as needed.
             document.getElementById('scoreDisplay').innerText = "Score: " + score;
+            saveBestScore(score);
+            displayBestScore();
+
             resourcesCollected++;
             document.getElementById('resourcesDisplay').innerText = "Resources: " + resourcesCollected;
             consumeSFX.play();
