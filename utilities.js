@@ -9,7 +9,6 @@ const RADIUS_SQUARED = Math.pow(RADIUS, 2);
 const MAX_RESOURCES = 10; 
 let score = 0;
 const RESOURCES_FOR_PRODUCTION = 5;  // Adjust as needed
-let resourcesCollected = 0;
 // Initialize the game grid with empty spaces
 let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' '));
 
@@ -42,9 +41,9 @@ function spawnResource() {
     }
 }
 
-// Check if the player has enough resources to produce
-function canProduceBacterium() {
-    return resourcesCollected >= RESOURCES_FOR_PRODUCTION;
+// Check if the player or rival has enough resources to produce
+function canProduceBacterium(resources) {
+    return resources >= RESOURCES_FOR_PRODUCTION;
 }
 
 function isBacteriumSurrounded(x, y) {

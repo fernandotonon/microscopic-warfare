@@ -1,10 +1,14 @@
+while (getResourceCount() < MAX_RESOURCES) {
+    spawnResource();
+}
+
 function drawGame() {
     let display = '';
     for (let y = 0; y < GAME_HEIGHT; y++) {
         for (let x = 0; x < GAME_WIDTH; x++) {
             const char = grid[y][x];
             if (char === 'P') {  // Active player bacterium
-                if (canProduceBacterium()) {
+                if (canProduceBacterium(resourcesCollected)) {
                     display += '<div class="bacteria bacteria-active-player can-produce"></div>';
                 } else {
                     display += '<div class="bacteria bacteria-active-player"></div>';
@@ -12,7 +16,11 @@ function drawGame() {
             } else if (char === 'p') {  // Created player bacterium
                 display += '<div class="bacteria bacteria-created-player"></div>';
             } else if (char === 'R') {  // Active rival bacterium
-                display += '<div class="bacteria bacteria-active-rival"></div>';
+                if (canProduceBacterium(rivalResourcesCollected)) {
+                    display += '<div class="bacteria bacteria-active-rival can-produce"></div>';
+                } else {
+                    display += '<div class="bacteria bacteria-active-rival"></div>';
+                }
             } else if (char === 'r') {  // Created rival bacterium
                 display += '<div class="bacteria bacteria-created-rival"></div>';
             } else if (char === '#') {
@@ -27,7 +35,7 @@ function drawGame() {
     gameArea.innerHTML = display;
 }
 
-setInterval(spawnResource, 3000);  // Spawns a resource every 3 seconds
+setInterval(spawnResource, 2000);  // Spawns a resource every 2 seconds
 
 function checkEndGameConditions() {
     const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]];

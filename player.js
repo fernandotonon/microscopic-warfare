@@ -1,6 +1,7 @@
 
 const playerPos = { x: Math.floor(GAME_WIDTH / 2), y: Math.floor(GAME_HEIGHT / 2)};
 grid[playerPos.y][playerPos.x] = 'P';  // 'P' represents the player bacterium
+let resourcesCollected = 0;
 
 document.addEventListener('keydown', function(event) {
     let newX = playerPos.x;
@@ -25,7 +26,7 @@ document.addEventListener('keydown', function(event) {
             break;
     }
 
-    if (event.key === ' ' && canProduceBacterium()) {
+    if (event.key === ' ' && canProduceBacterium(resourcesCollected)) {
         produceBacterium();
     }
 

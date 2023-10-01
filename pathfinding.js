@@ -18,7 +18,7 @@ function getNeighbors(node) {
         const x = node.x + dx;
         const y = node.y + dy;
         
-        if (grid[y] && grid[y][x] && (grid[y][x] === ' ' || grid[y][x] === '#')) {
+        if (grid[y] && grid[y][x] && (grid[y][x] === ' ' || grid[y][x] === '#' || grid[y][x] === 'r')) {
             neighbors.push(new Node(x, y));
         }
     }
