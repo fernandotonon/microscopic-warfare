@@ -52,7 +52,14 @@ function canMove(x, y, walkableTypes) {
         const [dx, dy] = dir;
         const nextX = x + dx;
         const nextY = y + dy;
-        if (grid[nextY] && grid[nextY][nextX] && walkableTypes.includes(grid[nextY][nextX]) && isWithinCircle(nextX, nextY)) {
+        if (nextY >= 0 && 
+            nextY < grid.length &&
+            nextX >= 0 &&
+            nextX < grid[nextY].length &&
+            grid[nextY] && 
+            grid[nextY][nextX] && 
+            walkableTypes.includes(grid[nextY][nextX]) && 
+            isWithinCircle(nextX, nextY)) {
             return true;
         }
         return false;

@@ -74,6 +74,7 @@ function endGame(message) {
     // Stop game loop, intervals, or any ongoing game activity
     // Display the end game message to the player
     alert(message);
+    location.reload();
 }
 
 

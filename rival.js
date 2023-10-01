@@ -52,11 +52,6 @@ function moveRival() {
     
     if (canProduceBacterium(rivalResourcesCollected)) {
         produceRivalBacterium();
-    }
-
-    if (!canMove(rivalPos.x, rivalPos.y, rivalWalkableTypes)) {
-        // Rival can't move, player wins
-        endGame('Player Wins!');
     }    
 
     const start = new Node(rivalPos.x, rivalPos.y);
@@ -65,6 +60,11 @@ function moveRival() {
     const path = aStar(start, goal);
     if (path.length > 1) {
         const nextMove = path[1];
+
+        if (!canMove(nextMove.x, nextMove.y, rivalWalkableTypes)) {
+            // Rival can't move, player wins
+            endGame('Player Wins!');
+        }
 
         // Consuming a resource
         if (grid[nextMove.y][nextMove.x] === '#') {
