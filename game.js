@@ -82,14 +82,41 @@ let reproduceSFX = new Audio('reproduce_sfx.mp3');
 bgMusic.volume = 0.5; // Reduce volume if it's too loud
 //bgMusic.play();
 
+function updateDominanceBar() {
+    let playerCells = 0;
+    let rivalCells = 0;
+    let totalCells = GAME_WIDTH * GAME_HEIGHT;
+
+    for (let y = 0; y < GAME_HEIGHT; y++) {
+        for (let x = 0; x < GAME_WIDTH; x++) {
+            if (grid[y][x] === 'P' || grid[y][x] === 'p') {
+                playerCells++;
+            } else if (grid[y][x] === 'R' || grid[y][x] === 'r') {
+                rivalCells++;
+            }
+        }
+    }
+
+    const playerPercentage = (playerCells / totalCells) * 100;
+    const rivalPercentage = (rivalCells / totalCells) * 100;
+
+    document.getElementById('playerDominance').style.flex = `0 0 ${playerPercentage}%`;
+    document.getElementById('rivalDominance').style.flex = `0 0 ${rivalPercentage}%`;
+
+    if (playerPercentage > 50) {
+        endGame('Player Wins!');
+    } else if (rivalPercentage > 50) {
+        endGame('Rival Wins!');
+    }
+}
+
+
 function gameLoop() {
     
-
-    // Update game state
-    // ...
-
     // Draw game state
     drawGame();
+
+    updateDominanceBar()
 
     requestAnimationFrame(gameLoop);
 }
