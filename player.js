@@ -45,7 +45,7 @@ document.addEventListener('keydown', function(event) {
     // Check if the new position is within the petri dish boundary
     if (isWithinCircle(newX, newY)) {
         const targetCell = grid[newY][newX];
-        if (targetCell === 'R' || isBacteriumSurrounded(newX, newY)) {
+        if (targetCell === 'R' || targetCell === 'r' || isBacteriumSurrounded(newX, newY)) {
             // Player is trying to move to a cell occupied by a rival or a surrounded bacterium, so block the movement
             return;
         }
