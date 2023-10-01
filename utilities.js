@@ -8,7 +8,7 @@ const RADIUS = Math.floor(Math.min(GAME_WIDTH, GAME_HEIGHT) / 2);
 const RADIUS_SQUARED = Math.pow(RADIUS, 2);
 const MAX_RESOURCES = 10; 
 let score = 0;
-const RESOURCES_FOR_PRODUCTION = 5;  // Adjust as needed
+const RESOURCES_FOR_PRODUCTION = 3;  // Adjust as needed
 // Initialize the game grid with empty spaces
 let grid = Array.from({ length: GAME_HEIGHT }, () => Array(GAME_WIDTH).fill(' '));
 
